@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">MiPokedex_MarquezEmiliano</string>
+    <string name="main">Mi Pokédex</string>
+    <string name="gengar">Gengar</string>
+    <string name="mimikyu">Mimikyu</string>
+    <string name="mew">Mew</string>
+    <string name="jigglypuff">Jigglypuff</string>
+    <string name="tipo">Tipo:</string>
+    <string name="numPokemonGengar">#0094</string>
+    <string name="info">Da click en cualquier pokémon para ver su información!</string>
+    <string name="tipo1">Fantasma</string>
+    <string name="tipo2">Veneno</string>
+    <string name="altura">Altura</string>
+    <string name="alturaP">1.50m</string>
+    <string name="peso">Peso</string>
+    <string name="pesoP">40.5kg</string>
+    <string name="habilidad">Habilidad</string>
+    <string name="habilidadGengar">Cuerpo Maldito</string>
+    <string name="descG">En luna llena, a este Pokémon le gusta imitar las sombras de la gente y burlarse de sus miedos.</string>
+    <string name="mewNum">Mew #0151</string>
+    <string name="jigglyNum">Jigglypuff #0039</string>
+</resources>
