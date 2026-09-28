@@ -173,7 +173,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guidelineMid"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvdescPokemon"
-            app:srcCompat="@drawable/mewPA" />
+            app:srcCompat="@drawable/mew_pa" />
 
         <ImageView
             android:id="@+id/ivFlechaIzq"
@@ -183,7 +183,7 @@
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/flechaIzquierda" />
+            app:srcCompat="@drawable/flecha_izquierda" />
 
         <TextView
             android:id="@+id/tvMewNum"
@@ -204,7 +204,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guidelineMid"
             app:layout_constraintTop_toBottomOf="@+id/tvdescPokemon"
-            app:srcCompat="@drawable/jigglypuffPA" />
+            app:srcCompat="@drawable/jigglypuff_pa" />
 
         <TextView
             android:id="@+id/tvJigglyNum"
@@ -225,7 +225,7 @@
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/flechaDerecha" />
+            app:srcCompat="@drawable/flecha_derecha" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

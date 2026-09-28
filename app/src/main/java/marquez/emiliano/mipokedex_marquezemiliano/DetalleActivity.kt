@@ -1,20 +1,22 @@
 package marquez.emiliano.mipokedex_marquezemiliano
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import marquez.emiliano.mipokedex_marquezemiliano.ui.PokemonDetailScreen
+import marquez.emiliano.mipokedex_marquezemiliano.ui.theme.PokemonDetailTheme
 
-class DetalleActivity : AppCompatActivity() {
+class DetalleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_detalle)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        setContent {
+            PokemonDetailTheme {
+                PokemonDetailScreen(
+                    onPreviousClick = { finish() }
+                )
+            }
         }
     }
 }
