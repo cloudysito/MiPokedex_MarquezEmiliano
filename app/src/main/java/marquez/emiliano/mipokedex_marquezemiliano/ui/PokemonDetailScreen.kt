@@ -21,10 +21,6 @@ import marquez.emiliano.mipokedex_marquezemiliano.ui.components.PokemonDetailCon
 import marquez.emiliano.mipokedex_marquezemiliano.ui.components.PokemonDetailHeader
 import marquez.emiliano.mipokedex_marquezemiliano.ui.theme.PokemonDetailTheme
 
-/**
- * Optimized Main Screen Composable for Pokemon Detail View.
- * Assembles all modular custom components with high performance layout hierarchy.
- */
 @Composable
 fun PokemonDetailScreen(
     pokemonData: PokemonDetailData = sampleGengarData(),
@@ -42,7 +38,6 @@ fun PokemonDetailScreen(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            // Top Header Component
             PokemonDetailHeader(
                 name = pokemonData.name,
                 number = pokemonData.number,
@@ -51,7 +46,6 @@ fun PokemonDetailScreen(
                 onFavoriteClick = onFavoriteClick
             )
 
-            // Bottom White Content Card Component
             PokemonDetailContentCard(
                 pokemonData = pokemonData,
                 onPreviousClick = onPreviousClick,
@@ -61,7 +55,6 @@ fun PokemonDetailScreen(
             )
         }
 
-        // Main Overlapping Pokemon Image
         Image(
             painter = painterResource(id = pokemonData.mainImageRes),
             contentDescription = pokemonData.name,

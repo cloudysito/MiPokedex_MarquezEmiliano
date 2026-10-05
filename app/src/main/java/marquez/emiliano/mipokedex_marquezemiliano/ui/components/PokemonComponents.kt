@@ -35,9 +35,6 @@ import marquez.emiliano.mipokedex_marquezemiliano.model.PokemonDetailData
 import marquez.emiliano.mipokedex_marquezemiliano.model.RelatedPokemon
 import marquez.emiliano.mipokedex_marquezemiliano.ui.theme.RedPokedex
 
-/**
- * Custom Composable for Pokemon Type Badges (e.g. Fantasma, Veneno)
- */
 @Composable
 fun PokemonTypeBadge(
     text: String,
@@ -58,9 +55,6 @@ fun PokemonTypeBadge(
     )
 }
 
-/**
- * Custom Composable for individual Pokemon Stats (e.g. Altura 1.50m, Peso 40.5kg, Habilidad Cuerpo Maldito)
- */
 @Composable
 fun PokemonStatItem(
     label: String,
@@ -89,9 +83,6 @@ fun PokemonStatItem(
     }
 }
 
-/**
- * Custom Composable for related/evolution Pokemon items
- */
 @Composable
 fun PokemonRelatedCard(
     relatedPokemon: RelatedPokemon,
@@ -119,9 +110,6 @@ fun PokemonRelatedCard(
     }
 }
 
-/**
- * Custom Composable for the Top Detail Header (Name, Star icon, Pokeball background watermark, Pokemon number)
- */
 @Composable
 fun PokemonDetailHeader(
     name: String,
@@ -136,7 +124,6 @@ fun PokemonDetailHeader(
             .fillMaxWidth()
             .height(260.dp),
     ) {
-        // Pokeball watermark top-right
         Image(
             painter = painterResource(id = pokeballBgRes),
             contentDescription = null,
@@ -147,7 +134,6 @@ fun PokemonDetailHeader(
             alpha = 0.9f,
         )
 
-        // Name and Favorite Star
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -170,7 +156,6 @@ fun PokemonDetailHeader(
             )
         }
 
-        // Pokemon Number
         Text(
             text = number,
             color = Color.Black,
@@ -183,9 +168,6 @@ fun PokemonDetailHeader(
     }
 }
 
-/**
- * Custom Composable for the bottom curved white card containing stats, description, related pokemon, and navigation buttons
- */
 @Composable
 fun PokemonDetailContentCard(
     pokemonData: PokemonDetailData,
@@ -210,7 +192,6 @@ fun PokemonDetailContentCard(
                 verticalArrangement = Arrangement.Top,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                // Type Badges Row
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically,
@@ -227,8 +208,6 @@ fun PokemonDetailContentCard(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Stats Section
-                // Row 1: Height and Ability
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -245,7 +224,6 @@ fun PokemonDetailContentCard(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Row 2: Weight
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Start,
@@ -258,7 +236,6 @@ fun PokemonDetailContentCard(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Description
                 Text(
                     text = pokemonData.description,
                     fontSize = 18.sp,
@@ -270,7 +247,6 @@ fun PokemonDetailContentCard(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Related Pokemon Section
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
@@ -287,7 +263,6 @@ fun PokemonDetailContentCard(
                 }
             }
 
-            // Bottom Navigation Arrows
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
