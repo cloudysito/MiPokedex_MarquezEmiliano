@@ -1,7 +1,6 @@
 package marquez.emiliano.mipokedex_marquezemiliano.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,6 +9,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,11 +23,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.lazy.items
 import marquez.emiliano.mipokedex_marquezemiliano.R
 import marquez.emiliano.mipokedex_marquezemiliano.domain.Pokemon
-import marquez.emiliano.mipokedex_marquezemiliano.ui.theme.Green
 import marquez.emiliano.mipokedex_marquezemiliano.ui.theme.PokemonDetailTheme
+import marquez.emiliano.mipokedex_marquezemiliano.utilities.getColorByType
 
 @Composable
 fun PokemonRow(pokemon: Pokemon) {
@@ -69,12 +72,11 @@ fun PokemonRow(pokemon: Pokemon) {
             }
         }
 
-        Text(
+        val primaryType = pokemon.type.split("/").firstOrNull() ?: pokemon.type
+        NumberChip(
             text = "${pokemon.number}",
-            modifier = Modifier
-                .align(Alignment.Top)
-                .background(Green)
-                .padding(horizontal = 5.dp, vertical = 2.dp)
+            modifier = Modifier.align(Alignment.Top),
+            colors = getColorByType(primaryType)
         )
     }
 }
@@ -84,10 +86,42 @@ fun pokemonRow(pokemon: Pokemon) {
     PokemonRow(pokemon = pokemon)
 }
 
+@Composable
+fun FavoritesRow(
+    favoriteList: List<Pokemon>,
+    modifier: Modifier = Modifier
+) {
+    LazyRow(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        items(favoriteList) { pokemon ->
+            FavoritePokemon(pokemon = pokemon)
+        }
+    }
+}
 
 @Composable
-fun MenuPokedex(pokemonList: List<Pokemon>, innerPadding: PaddingValues) {
-    LazyColumn(contentPadding = innerPadding) {
+fun PokedexGrid(
+    pokemonList: List<Pokemon>,
+    modifier: Modifier = Modifier
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(3),
+        modifier = modifier,
+        contentPadding = PaddingValues(horizontal = 5.dp, vertical = 20.dp),
+        horizontalArrangement = Arrangement.spacedBy(5.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        items(pokemonList) { pokemon ->
+            PokemonCell(pokemon = pokemon)
+        }
+    }
+}
+
+@Composable
+fun MenuPokedex(pokemonList: List<Pokemon>) {
+    LazyColumn {
         items(pokemonList) { pokemon -> PokemonRow(pokemon) }
     }
 }
