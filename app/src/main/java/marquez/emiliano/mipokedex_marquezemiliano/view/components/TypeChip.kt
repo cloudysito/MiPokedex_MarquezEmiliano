@@ -1,4 +1,4 @@
-package marquez.emiliano.mipokedex_marquezemiliano.components
+package marquez.emiliano.mipokedex_marquezemiliano.view.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,36 +16,30 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import marquez.emiliano.mipokedex_marquezemiliano.utilities.getColorByType
 
 @Composable
-fun NumberChip(
-    text: String,
-    modifier: Modifier = Modifier,
-    colors: Pair<Color, Color>,
-) {
+fun NumberChip(text: String, colors: Pair<Color, Color>, modifier: Modifier = Modifier) {
     Row(
-        modifier = modifier
-            .size(30.dp)
-            .background(color = colors.first, shape = CircleShape)
-            .padding(5.dp),
-        horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+        modifier = modifier
+            .padding(5.dp)
+            .background(colors.first, CircleShape)
+            .size(30.dp)
     ) {
         Text(
             text = text,
             fontSize = 12.sp,
             fontFamily = FontFamily.SansSerif,
             fontWeight = FontWeight.Black,
-            color = colors.second,
+            color = colors.second
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun NumberChipPreview() {
-    NumberChip(
-        text = "1",
-        colors = Pair(Color.Red, Color.White),
-    )
+fun previewChip() {
+    NumberChip("000", getColorByType("grass"))
 }

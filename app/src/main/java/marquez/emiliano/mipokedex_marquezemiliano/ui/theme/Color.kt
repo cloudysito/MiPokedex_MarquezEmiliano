@@ -2,18 +2,17 @@ package marquez.emiliano.mipokedex_marquezemiliano.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val PurplePokedex = Color(0xFF9C27B0)
-val DarkBluePokedex = Color(0xFF002759)
-val RedPokedex = Color(0xFFFF0100)
-val LightGrayPokedex = Color(0xFFC1C1C1)
-val PinkPokedex = Color(0xFFEB85FD)
-val GrayPokedex = Color(0xFF4D4D4D)
-val YellowPokedex = Color(0xFFFFEB3B)
-val WhitePokedex = Color(0xFFFFFFFF)
-val BlackPokedex = Color(0xFF000000)
-val Green = Color(0xFF81CA85)
+val Purple80 = Color(0xFFD0BCFF)
+val PurpleGrey80 = Color(0xFFCCC2DC)
+val Pink80 = Color(0xFFEFB8C8)
+
+val Purple40 = Color(0xFF6650a4)
+val PurpleGrey40 = Color(0xFF625b71)
+val Pink40 = Color(0xFF7D5260)
+
 val OffWhite = Color(0xFFFAFAFA)
 val DarkGray = Color(0xFF1F1F1F)
+
 val Electric = Color(0xFFFFEB3B)
 val Grass = Color(0xFF43A047)
 val Fire = Color(0xFFE74440)
@@ -31,3 +30,8 @@ val Dragon = Color(0xFF3949AB)
 val Dark = Color(0xFF131310)
 val Ice = Color(0xFF9FA8DA)
 val Fairy = Color(0xFFEF9A9A)
+
+val Green = Color(0xFF81CA85)
+val LightGreen = Color(0xFFCCFFCE)
+val Blue = Color(0xFF4D92d2)
+val LightBlue = Color(0xFFA5CEFD)
