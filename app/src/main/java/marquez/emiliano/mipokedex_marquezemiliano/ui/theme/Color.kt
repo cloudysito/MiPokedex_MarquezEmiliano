@@ -12,6 +12,7 @@ val Pink40 = Color(0xFF7D5260)
 
 val OffWhite = Color(0xFFFAFAFA)
 val DarkGray = Color(0xFF1F1F1F)
+val Grey = Color(0xFF808080)
 
 val Electric = Color(0xFFFFEB3B)
 val Grass = Color(0xFF43A047)
