@@ -8,8 +8,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -18,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import marquez.emiliano.mipokedex_marquezemiliano.R
 import marquez.emiliano.mipokedex_marquezemiliano.model.data.getFavoritePokemons
 import marquez.emiliano.mipokedex_marquezemiliano.model.data.pokemonList
+import marquez.emiliano.mipokedex_marquezemiliano.model.preferences.UserPreferences
 import marquez.emiliano.mipokedex_marquezemiliano.ui.theme.Blue
 import marquez.emiliano.mipokedex_marquezemiliano.ui.theme.Green
 import marquez.emiliano.mipokedex_marquezemiliano.ui.theme.LightBlue
@@ -37,15 +40,26 @@ import marquez.emiliano.mipokedex_marquezemiliano.view.components.PokedexGrid
 
 @Composable
 fun MenuPokedexScreen(innerPadding: PaddingValues, onNavigateToDetail: (id: Int) -> Unit,
-                      onNavigateToHunt: () -> Unit) {
-    var grid by remember { mutableStateOf(false) }
+                      onNavigateToHunt: () -> Unit, onLogout: () -> Unit) {
+    val shared = LocalContext.current.getSharedPreferences(
+        UserPreferences.ARCHIVO,
+        android.content.Context.MODE_PRIVATE
+    )
+    var grid by remember {
+        mutableStateOf(shared.getBoolean(UserPreferences.POKEMON_DISPLAY, false))
+    }
 
     Column(modifier = Modifier.padding(innerPadding)) {
         Row(modifier = Modifier.fillMaxWidth(),  verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween) {
             Text("Favorite Pokemons")
-            Button(onClick = {onNavigateToHunt()}) {
-                Text("Catch New")
+            Row {
+                FloatingActionButton(onClick = { onNavigateToHunt() }) {
+                    Text("+")
+                }
+                OutlinedButton(onClick = onLogout) {
+                    Text("Cerrar sesión")
+                }
             }
         }
 
@@ -60,7 +74,10 @@ fun MenuPokedexScreen(innerPadding: PaddingValues, onNavigateToDetail: (id: Int)
             Text("All pokemons")
             Switch(
                 checked = grid,
-                onCheckedChange = { grid = it },
+                onCheckedChange = {
+                    grid = it
+                    shared.edit().putBoolean(UserPreferences.POKEMON_DISPLAY, it).apply()
+                },
                 colors = SwitchDefaults.colors(
                     checkedThumbColor = Green,
                     checkedTrackColor = LightGreen,
@@ -97,5 +114,5 @@ fun MenuPokedexScreen(innerPadding: PaddingValues, onNavigateToDetail: (id: Int)
 @Preview(showBackground = true)
 @Composable
 fun ScreenPreview() {
-    MenuPokedexScreen(PaddingValues(10.dp, 15.dp), {}, onNavigateToHunt = {})
+    MenuPokedexScreen(PaddingValues(10.dp, 15.dp), {}, onNavigateToHunt = {}, onLogout = {})
 }

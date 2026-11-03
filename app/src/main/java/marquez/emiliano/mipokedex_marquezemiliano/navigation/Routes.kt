@@ -6,6 +6,9 @@ import kotlinx.serialization.Serializable
 object PokemonList
 
 @Serializable
+object Login
+
+@Serializable
 object PokemonHunt
 
 @Serializable
