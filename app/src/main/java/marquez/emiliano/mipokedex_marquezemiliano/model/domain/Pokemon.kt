@@ -1,8 +1,11 @@
 package marquez.emiliano.mipokedex_marquezemiliano.model.domain
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Pokemon(
     val name: String,
-    val number: Number,
+    val number: Int,
     val type: String,
     val description: String,
     val height: Float,

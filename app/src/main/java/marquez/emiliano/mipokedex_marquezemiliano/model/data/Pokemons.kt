@@ -35,5 +35,5 @@ fun getFavoritePokemons(): List<Pokemon> {
 }
 
 fun getPokemonByNumber(id: Int): Pokemon {
-    return pokemonList.firstOrNull { it.number.toInt() == id } ?: bulbasaur
+    return pokemonList.firstOrNull { it.number == id } ?: bulbasaur
 }

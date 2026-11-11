@@ -31,6 +31,23 @@ class Users(context: Context) {
             .apply()
     }
 
+    fun getCurrentUser(): User? {
+        val email = shared.getString(UserPreferences.USER, null) ?: return null
+        return getUserByMail(email)
+    }
+
+    fun savePokemonDisplay(useGrid: Boolean) {
+        val email = shared.getString(UserPreferences.USER, null) ?: return
+        shared.edit()
+            .putBoolean("${UserPreferences.POKEMON_DISPLAY}_${email.trim().lowercase()}", useGrid)
+            .apply()
+    }
+
+    fun getPokemonDisplay(): Boolean {
+        val email = shared.getString(UserPreferences.USER, null) ?: return false
+        return shared.getBoolean("${UserPreferences.POKEMON_DISPLAY}_${email.trim().lowercase()}", false)
+    }
+
     fun isLoggedIn(): Boolean {
         return !shared.getString(UserPreferences.USER, null).isNullOrEmpty() &&
             !shared.getString(UserPreferences.USERNAME, null).isNullOrEmpty()

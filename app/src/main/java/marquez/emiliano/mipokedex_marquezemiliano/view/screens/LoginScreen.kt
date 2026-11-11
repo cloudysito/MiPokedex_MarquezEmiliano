@@ -19,9 +19,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import marquez.emiliano.mipokedex_marquezemiliano.model.data.CompanionPreferences
 import marquez.emiliano.mipokedex_marquezemiliano.model.data.Users
 import marquez.emiliano.mipokedex_marquezemiliano.viewmodel.UserViewModel
 
@@ -30,7 +32,8 @@ fun LoginScreen(
     innerPadding: PaddingValues,
     users: Users,
     onNavigateToMenu: () -> Unit,
-    viewModel: UserViewModel = remember(users) { UserViewModel(users) }
+    context: android.content.Context = LocalContext.current,
+    viewModel: UserViewModel = remember(users, context) { UserViewModel(users, CompanionPreferences(context)) }
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }

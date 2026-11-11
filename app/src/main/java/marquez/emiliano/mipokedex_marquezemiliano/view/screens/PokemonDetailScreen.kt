@@ -1,5 +1,6 @@
 package marquez.emiliano.mipokedex_marquezemiliano.view.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,30 +16,53 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import marquez.emiliano.mipokedex_marquezemiliano.R
 import marquez.emiliano.mipokedex_marquezemiliano.model.data.bulbasaur
 import marquez.emiliano.mipokedex_marquezemiliano.model.domain.Pokemon
 import marquez.emiliano.mipokedex_marquezemiliano.ui.theme.Grey
 import marquez.emiliano.mipokedex_marquezemiliano.utilities.getColorByType
+import marquez.emiliano.mipokedex_marquezemiliano.viewmodel.PokemonDetailViewModel
 
 @Composable
 fun PokemonDetailScreen(
     innerPadding: PaddingValues,
-    pokemon: Pokemon,
-    colors: Pair<Color, Color> = getColorByType(pokemon.type)
+    pokemonNumber: Int,
+    pokemonDetailViewModel: PokemonDetailViewModel = viewModel()
 ) {
+    val context = LocalContext.current
+
+    pokemonDetailViewModel.loadPokemon(pokemonNumber)
+
+    LaunchedEffect(pokemonDetailViewModel.companionSavedMessage) {
+        pokemonDetailViewModel.companionSavedMessage?.let { msg ->
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+            pokemonDetailViewModel.clearCompanionMessage()
+        }
+    }
+
+    val pokemon = pokemonDetailViewModel.pokemon ?: return
+    val colors = getColorByType(pokemon.type)
+    val companion by pokemonDetailViewModel.companion.collectAsState()
+    val isCompanion = companion.number == pokemon.number
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -88,6 +112,34 @@ fun PokemonDetailScreen(
                 .size(260.dp),
             alignment = Alignment.Center
         )
+
+        if (isCompanion) {
+            Row(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 20.dp)
+                    .background(color = Color(0xFFFFF59D), shape = RoundedCornerShape(20.dp))
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "⭐ Es tu compañero",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF5D4037)
+                )
+            }
+        } else {
+            Button(
+                onClick = { pokemonDetailViewModel.saveCompanion(pokemon) },
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 16.dp)
+            ) {
+                Text("Seleccionar compañero")
+            }
+        }
     }
 }
 
@@ -103,7 +155,7 @@ fun CuadroBlanco(pokemon: Pokemon) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 80.dp, start = 24.dp, end = 24.dp, bottom = 16.dp),
+                .padding(top = 80.dp, start = 24.dp, end = 24.dp, bottom = 60.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
@@ -193,5 +245,5 @@ fun CuadroBlanco(pokemon: Pokemon) {
 @Preview(showBackground = true)
 @Composable
 fun PokemonDetailScreenPreview() {
-    PokemonDetailScreen(PaddingValues(10.dp, 15.dp), bulbasaur, getColorByType(bulbasaur.type))
+    PokemonDetailScreen(PaddingValues(10.dp, 15.dp), bulbasaur.number)
 }

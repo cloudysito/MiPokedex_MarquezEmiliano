@@ -35,7 +35,7 @@ fun PokemonRow(pokemon: Pokemon, onNavigateToDetail: (id: Int) -> Unit = {}) {
     Row(
         Modifier
             .fillMaxWidth()
-            .clickable { onNavigateToDetail(pokemon.number.toInt()) }
+            .clickable { onNavigateToDetail(pokemon.number) }
             .padding(horizontal = 10.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
@@ -73,7 +73,7 @@ fun FavoritePokemon(pokemon: Pokemon, onNavigateToDetail: (id: Int) -> Unit) {
         Modifier
             .width(150.dp)
             .padding(vertical = 15.dp)
-            .clickable(true, onClick = { onNavigateToDetail(pokemon.number.toInt()) }),
+            .clickable { onNavigateToDetail(pokemon.number) },
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -114,7 +114,7 @@ fun PokemonCell(pokemon: Pokemon, onNavigateToDetail: (id: Int) -> Unit = {}) {
     val colors = getColorByType(pokemon.type)
 
     Column(
-        modifier = Modifier.clickable { onNavigateToDetail(pokemon.number.toInt()) },
+        modifier = Modifier.clickable { onNavigateToDetail(pokemon.number) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box {

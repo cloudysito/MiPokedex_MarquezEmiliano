@@ -57,6 +57,10 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.datastore.core)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     testImplementation(libs.junit)
