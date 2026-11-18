@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -24,7 +25,11 @@ import marquez.emiliano.mipokedex_marquezemiliano.utilities.getColorByType
 import marquez.emiliano.mipokedex_marquezemiliano.viewmodel.UserViewModel
 
 @Composable
-fun ProfileScreen(innerPadding: PaddingValues, userViewModel: UserViewModel = viewModel()){
+fun ProfileScreen(
+    innerPadding: PaddingValues,
+    userViewModel: UserViewModel = viewModel(),
+    onLogout: () -> Unit = {}
+) {
     val companionState by userViewModel.companion.collectAsState()
     val pokemon = if (companionState.name.isNotEmpty()) companionState else bulbasaur
     val companionDays = userViewModel.getCompanionDays()
@@ -47,7 +52,7 @@ fun ProfileScreen(innerPadding: PaddingValues, userViewModel: UserViewModel = vi
             style = Typography.titleLarge,
             color = Purple40
         )
-        Spacer(Modifier.size(50.dp))
+        Spacer(Modifier.size(30.dp))
         Text("Mi compañero", style = Typography.titleLarge)
         Image(painterResource(pokemon.image), contentDescription = pokemon.name + "image")
         Text(pokemon.name, style = Typography.titleMedium, color = getColorByType(pokemon.type).first)
@@ -57,11 +62,15 @@ fun ProfileScreen(innerPadding: PaddingValues, userViewModel: UserViewModel = vi
             style = Typography.bodyLarge,
             color = Purple40
         )
+        Spacer(Modifier.weight(1f))
+        OutlinedButton(onClick = onLogout) {
+            Text("Cerrar sesión")
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewProfileScreen(){
+fun PreviewProfileScreen() {
     ProfileScreen(PaddingValues())
 }

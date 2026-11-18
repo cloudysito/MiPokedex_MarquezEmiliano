@@ -10,10 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -48,8 +48,8 @@ fun MenuPokedexScreen(
     innerPadding: PaddingValues,
     onNavigateToDetail: (id: Int) -> Unit,
     onNavigateToHunt: () -> Unit,
-    onNavigateToProfile: () -> Unit,
-    onLogout: () -> Unit
+    onNavigateToAddPokemon: () -> Unit = {},
+    onNavigateToProfile: () -> Unit
 ) {
     val shared = LocalContext.current.getSharedPreferences(
         UserPreferences.ARCHIVO,
@@ -60,7 +60,6 @@ fun MenuPokedexScreen(
     }
 
     Column(modifier = Modifier.padding(innerPadding).padding(horizontal = 12.dp)) {
-        // Top Action Bar with Profile and Catch/Logout buttons
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -75,35 +74,34 @@ fun MenuPokedexScreen(
                     modifier = Modifier.size(36.dp)
                 )
             }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            FloatingActionButton(
+                onClick = { onNavigateToAddPokemon() },
+                modifier = Modifier.size(42.dp)
             ) {
-                FloatingActionButton(
-                    onClick = { onNavigateToHunt() },
-                    modifier = Modifier.size(42.dp)
-                ) {
-                    Text("+", style = Typography.labelLarge)
-                }
-                OutlinedButton(onClick = onLogout) {
-                    Text("Cerrar")
-                }
+                Text("+", style = Typography.labelLarge)
             }
         }
 
         Spacer(Modifier.size(12.dp))
 
-        // Favorite Pokemons Section
-        Text(
-            text = "Favorite Pokemons",
-            style = Typography.titleLarge,
-            fontWeight = FontWeight.Bold
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Favorite Pokemons",
+                style = Typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+            Button(onClick = { onNavigateToHunt() }) {
+                Text("Catch New")
+            }
+        }
 
         FavoritesRow(getFavoritePokemons(), onNavigateToDetail)
         Spacer(Modifier.size(15.dp))
 
-        // All Pokemons Section Header
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -162,7 +160,7 @@ fun ScreenPreview() {
         PaddingValues(10.dp, 15.dp),
         onNavigateToDetail = {},
         onNavigateToHunt = {},
-        onNavigateToProfile = {},
-        onLogout = {}
+        onNavigateToAddPokemon = {},
+        onNavigateToProfile = {}
     )
 }

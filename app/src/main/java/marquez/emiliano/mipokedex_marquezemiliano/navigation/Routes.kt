@@ -15,4 +15,7 @@ object PokemonHunt
 object Profile
 
 @Serializable
+object AddPokemon
+
+@Serializable
 data class PokemonDetail(val pokemon: Int)
